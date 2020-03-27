@@ -13,6 +13,7 @@ public class User {
     private String major;
     private String className;
     private String name;
+    private String avatarUrl;
 
 
 }
