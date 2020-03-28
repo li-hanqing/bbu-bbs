@@ -1,6 +1,6 @@
 package com.bbu.mapper;
 
-import com.bbu.pojo.User;
+import com.bbu.model.User;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 

@@ -4,3 +4,12 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
     password: "00000000"  #密码加双引号
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true  #开启驼峰命名映射
+
+pagehelper:
+  helper-dialect: mysql
+  reasonable: true
+  support-methods-arguments: true
+  params: count=countSql

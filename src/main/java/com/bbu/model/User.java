@@ -1,8 +1,6 @@
-package com.bbu.pojo;
+package com.bbu.model;
 
 import lombok.Data;
-import org.apache.ibatis.annotations.Param;
-import org.springframework.context.annotation.Bean;
 
 @Data
 public class User {

@@ -1,7 +1,7 @@
 package com.bbu.service;
 
 import com.bbu.mapper.UserMapper;
-import com.bbu.pojo.User;
+import com.bbu.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 @Service

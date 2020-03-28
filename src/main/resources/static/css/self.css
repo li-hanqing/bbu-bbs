@@ -1,9 +1,24 @@
 body{
-    background-color: #efefef;
+    background-color: rgba(239, 239, 239, 0.94);
 }
+
 .main{
     margin: 30px;
     background-color: white;
+}
+
+.main .major a{
+
+    cursor: pointer;
+    display: inline-block;
+    height: 25px;
+    line-height: 20px;
+    padding: 2px 5px;
+    background-color: #99cfff;
+    font-size: 15px;
+    color: #fff !important;
+    border-radius: 4px;
+    margin: 4px;
 }
 .btn-publish{
     float: right;

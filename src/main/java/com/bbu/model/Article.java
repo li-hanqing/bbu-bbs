@@ -1,4 +1,4 @@
-package com.bbu.pojo;
+package com.bbu.model;
 
 import lombok.Data;
 
