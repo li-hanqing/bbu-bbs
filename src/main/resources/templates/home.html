@@ -25,7 +25,7 @@
                         <!-- <span th:text="${article.content}"></span>-->
                         <p>
                             <a class="article-tag" href="#" th:if="${article.tag!=''}" th:text="${article.tag}">软件工程</a>
-                            作者: <a href="#" class="aw-user-name" th:text="${article.user.userName}"></a>
+                            <a href="#" class="aw-user-name" th:text="${article.user.userName}"></a>
                             <span class="text-desc">发布了文章 • [[${article.commentCount}]] 个评论 • [[${article.viewCount}]] 次浏览 • [[${#dates.format(article.gmtCreate,'yyyy-MM-dd')}]]</span>
                         </p>
                         <hr>

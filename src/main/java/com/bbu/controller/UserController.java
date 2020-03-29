@@ -30,7 +30,6 @@ public class UserController {
     @RequestMapping("/login")   //登录
     public String login(@ModelAttribute User user,HttpServletRequest request,Model model){
 
-
         if (userService.login(user.getMail(),user.getPwd())){
             System.out.println("登录成功");
             request.getSession().setAttribute("user",userService.getUser(user.getMail()));

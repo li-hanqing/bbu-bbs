@@ -4,6 +4,7 @@ import com.bbu.model.Article;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -19,4 +20,9 @@ public interface ArticleMapper {
     public List<Article> getArticles();
     @Select("select * from article where id = #{id}")
     public Article getArticleById(Integer id);
+    @Select("select * from article where creator = #{userName}")
+    List<Article> getArticlesByCreator(String userName);
+
+    @Update("update article set title = #{title}, content = #{content}, tag = #{tag}, gmt_modified = #{gmtModified} where id = #{id}")
+    public void updateArticleById(Article article);
 }

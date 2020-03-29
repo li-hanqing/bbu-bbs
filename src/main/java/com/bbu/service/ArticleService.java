@@ -19,17 +19,26 @@ public class ArticleService {
 
     @Autowired
     private UserMapper userMapper;
-
-    public String create(Article article){              //发布文章进行逻辑判断
+    //创建 或者 更新文章
+    public String create(Article article){
         if (article.getTitle()==null || article.getTitle() == ""){
             return "标题不能为空";
         }
         else if (article.getContent() == null || article.getContent() ==""){
             return "文章内容不能为空";
         }
-        articleMapper.create(article);
+        if (article.getId()  == null){
+            article.setGmtCreate(System.currentTimeMillis());
+            articleMapper.create(article);
+        }else {
+            article.setGmtModified(System.currentTimeMillis());
+            articleMapper.updateArticleById(article);
+        }
         return "发布成功";
+
     }
+
+
 
     public List<ArticleDTO> getArticleDTOS(){                  //获取文章传输beans
         List<Article> articles = articleMapper.getArticles();
@@ -43,7 +52,7 @@ public class ArticleService {
         }
         return articleDTOS;
     }
-
+    //通过文章id获取文章传输对象
     public ArticleDTO getArticleDTObyId(Integer id) {
         Article article = articleMapper.getArticleById(id);
         User user = userMapper.getUserByUserName(article.getCreator());

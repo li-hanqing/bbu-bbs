@@ -1,5 +1,7 @@
 package com.bbu.controller;
 
+import com.bbu.dto.ArticleDTO;
+import com.bbu.mapper.ArticleMapper;
 import com.bbu.model.Article;
 import com.bbu.model.User;
 import com.bbu.service.ArticleService;
@@ -7,9 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -23,22 +23,35 @@ public class PublishController {
         return "publish";
     }
     @PostMapping("/publish")
-    public String doPublish(@ModelAttribute Article article, Model model, HttpServletRequest request){
-
+    public String doPublish(@ModelAttribute Article article,
+                            Model model,
+                            HttpServletRequest request,
+                            @RequestParam(name = "id",required = false)Integer id){
         User user = (User) request.getSession().getAttribute("user");
         if (user == null){
             return "login";
         }
-        article.setGmtCreate(System.currentTimeMillis());
-        article.setGmtModified(article.getGmtCreate());
         article.setCreator(user.getUserName());
-        String s = articleService.create(article); //返回文章创建成功与否的信息
-        model.addAttribute("pubMsg",s);
-        if (s.equals("发布成功")==false){           //为发布成功则回显数据
+        article.setId(id);
+        String msg = articleService.create(article); //创建文章并返回文章创建成功与否的信息
+        model.addAttribute("pubMsg",msg);
+        if (msg.equals("发布成功")==false){           //发布失败则回显数据文章信息
             model.addAttribute("title",article.getTitle());
             model.addAttribute("content",article.getContent());
             model.addAttribute("tag",article.getTag());
+        }else if (id!=null) {
+            return "redirect:/article/" +id;
         }
+        return "redirect:/profile/article";
+    }
+
+    @GetMapping("/publish/{articleId}")   //编辑文章请求
+    public String  updateArticle(@PathVariable(name = "articleId") Integer articleId,Model model){
+        ArticleDTO articleDTO = articleService.getArticleDTObyId(articleId);
+        model.addAttribute("title",articleDTO.getTitle());
+        model.addAttribute("content",articleDTO.getContent());
+        model.addAttribute("tag",articleDTO.getTag());
+        model.addAttribute("id",articleId);
         return "publish";
     }
 }
