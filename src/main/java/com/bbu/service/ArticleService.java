@@ -43,4 +43,15 @@ public class ArticleService {
         }
         return articleDTOS;
     }
+
+    public ArticleDTO getArticleDTObyId(Integer id) {
+        Article article = articleMapper.getArticleById(id);
+        User user = userMapper.getUserByUserName(article.getCreator());
+        ArticleDTO articleDTO = new ArticleDTO();
+        BeanUtils.copyProperties(article,articleDTO);
+        articleDTO.setUser(user);
+        return articleDTO;
+    }
+
+
 }

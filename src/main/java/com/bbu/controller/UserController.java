@@ -25,13 +25,15 @@ public class UserController {
     @RequestMapping("/exit")      //退出按钮
     public String exit(HttpServletRequest request){
         request.getSession().removeAttribute("user");
-        return "index";
+        return "redirect:/";
     }
     @RequestMapping("/login")   //登录
     public String login(@ModelAttribute User user,HttpServletRequest request,Model model){
+
+
         if (userService.login(user.getMail(),user.getPwd())){
             System.out.println("登录成功");
-            request.getSession().setAttribute("user",user);
+            request.getSession().setAttribute("user",userService.getUser(user.getMail()));
             return "redirect:/";
         }
         else{

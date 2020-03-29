@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="/css/self.css">
+    <link rel="stylesheet" href="/css/editormd.preview.min.css"/>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js" type="application/javascript"></script>
+    <script src="/js/editormd.js"></script>
+    <script src="/js/lib/marked.min.js"></script>
+    <script src="/js/lib/prettify.min.js"></script>
+</head>
+<body>
+<div th:replace="navigation :: navcopy"></div>
+<div class="aw-container-wrap" th:fragment="viewArticle">
+    <div class="container main" >
+        <div class="row">
+            <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
+                <div class="media">
+                    <div class="media-body">
+                        <h1 th:text="${articleDTO.title}">文章标题</h1>
+                        <hr>
+                        <em class="text-color-999 article-desc">
+                            <a class="article-tag" href="#" th:if="${articleDTO.tag!=''}" th:text="${articleDTO.tag}">文章标签</a>
+                            | 作者:<a class="aw-user-name" href="#" th:text="${articleDTO.user.userName}">文章作者</a>
+                            | 发布于:<span th:text="${#dates.format(articleDTO.gmtCreate,'yyyy-MM-dd')}">发布时间</span>
+                            | 阅读数：<span>阅读数</span>
+                        </em>
+                        <hr>
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="article-markdown-view">
+                            <!-- Server-side output Markdown text -->
+                            <textarea style="display:none;" th:text="${articleDTO.content}">### Hello world!</textarea>
+                        </div>
+                        <script type="text/javascript">
+                            $(function () {
+                                var testView = editormd.markdownToHTML("article-markdown-view", {
+                                    // markdown : "[TOC]\n### Hello world!\n## Heading 2", // Also, you can dynamic set Markdown text
+                                    // htmlDecode : true,  // Enable / disable HTML tag encode.
+                                    // htmlDecode : "style,script,iframe",  // Note: If enabled, you should filter some dangerous HTML tags for website security.
+                                });
+                            });
+                        </script>
+                        <hr>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+                <h3>发起人</h3>
+                <div class="media-left">
+                    <a href="#">
+                        <img class="media-object img-rounded"
+                             th:src="${articleDTO.user.avatarUrl}" alt="...">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>

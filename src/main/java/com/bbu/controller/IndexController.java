@@ -22,7 +22,7 @@ public class IndexController {
     @GetMapping("/")
     public String getArticleList(Model model, HttpServletRequest request,
                                  @RequestParam(value = "pageNum",defaultValue = "1",required = false)int pageNum,
-                                 @RequestParam(value = "pageSize",defaultValue = "6")int pageSize){
+                                 @RequestParam(value = "pageSize",defaultValue = "9")int pageSize){
 
         Page page = PageHelper.startPage(pageNum,pageSize);
         List<ArticleDTO> articleDTOS = articleService.getArticleDTOS();

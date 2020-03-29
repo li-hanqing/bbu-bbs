@@ -6,73 +6,77 @@
 </head>
 <body>
 <!--主页文章显示页面-->
-<div class="container-fluid main" th:fragment="homecopy">
-    <div class="row">
-        <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
-            <h2><span class="glyphicon glyphicon-list" aria-hidden="true">发现</span></h2>
-            <hr>
-            <div class="media" th:each="article : ${articles}">
-                <div class="media-left">
-                    <a href="#">
-                        <img class="media-object img-rounded"
-                             th:src="${article.user.avatarUrl}"  alt="...">
-                    </a>
-                </div>
-                <div class="media-body">
-                    <h4 class="media-heading"><a th:text="${article.title}"></a></h4> <!--文章标题-->
-                    <span th:text="${article.content}"></span>
-                    <p>
-                        <a class="aw-question-tags" href="https://elasticsearch.cn/explore/category-16">活动</a>
-                        • <a href="" class="aw-user-name" th:text="${article.user.userName}"></a>
-                        <span class="text-desc">发布了置顶文章 • [[${article.commentCount}]] 个评论 • [[${article.viewCount}]] 次浏览 • [[${#dates.format(article.gmtCreate,'yyyy-MM-dd')}]]</span>
-                    </p>
-                    <hr>
+<div class="aw-container-wrap" th:fragment="homecopy">
+    <div class="container main" >
+        <div class="row">
+            <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
+                <h2><span class="glyphicon glyphicon-list" aria-hidden="true">发现</span></h2>
+                <hr>
+                <div class="media" th:each="article : ${articles}">
+                    <div class="media-left">
+                        <a href="#">
+                            <img class="media-object img-rounded"
+                                 th:src="${article.user.avatarUrl}" alt="...">
+                        </a>
+                    </div>
+                    <div class="media-body">
+                        <h1 class="media-heading"><a th:href="'/article/' + ${article.id}"
+                                                     th:text="${article.title}"></a></h1> <!--文章标题-->
+                        <!-- <span th:text="${article.content}"></span>-->
+                        <p>
+                            <a class="article-tag" href="#" th:if="${article.tag!=''}" th:text="${article.tag}">软件工程</a>
+                            作者: <a href="#" class="aw-user-name" th:text="${article.user.userName}"></a>
+                            <span class="text-desc">发布了文章 • [[${article.commentCount}]] 个评论 • [[${article.viewCount}]] 次浏览 • [[${#dates.format(article.gmtCreate,'yyyy-MM-dd')}]]</span>
+                        </p>
+                        <hr>
+                    </div>
+
                 </div>
 
+                <nav aria-label="Page navigation" style="float: right">
+                    <ul class="pagination">
+                        <!--首页-->
+                        <li>
+                            <a th:href="'/?pageNum='+${pageInfo.navigateFirstPage}">首页</a>
+                        </li>
+                        <!--上一页-->
+                        <li th:if="${pageInfo.hasPreviousPage}">
+                            <a th:href="'/?pageNum=' + ${pageInfo.prePage}" aria-label="Previous">
+                                <span aria-hidden="true">上一页</span>
+                            </a>
+                        </li>
+                        <!--当前显示的页号-->
+                        <th:block th:each="nav : ${pageInfo.navigatepageNums}">
+                            <li th:class="${nav==pageInfo.pageNum}?'active':'' "
+                                th:if="${(nav < (pageInfo.pageNum-2))||(nav > (pageInfo.pageNum+2)) ?'false':'true'}">
+                                <a th:href="'/?pageNum=' + ${nav}"
+                                   th:text="${nav}"></a></li>
+                        </th:block>
+                        <!--下一页-->
+                        <li th:if="${pageInfo.hasNextPage}">
+                            <a th:href="'/?pageNum=' + ${pageInfo.nextPage}" aria-label="Next">
+                                <span aria-hidden="true">下一页</span>
+                            </a>
+                        </li>
+                        <!--尾页-->
+                        <li>
+                            <a th:href="'/?pageNum='+${pageInfo.navigateLastPage}">尾页</a>
+                        </li>
+                    </ul>
+                </nav>
             </div>
+            <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+                <h3>话题：</h3>
 
-            <nav aria-label="Page navigation" style="float: right">
-                <ul class="pagination">
-                    <!--首页-->
-                    <li >
-                        <a th:href="'/?pageNum='+${pageInfo.navigateFirstPage}" >首页</a>
-                    </li>
-                    <!--上一页-->
-                    <li th:if="${pageInfo.hasPreviousPage}">
-                        <a th:href="'/?pageNum=' + ${pageInfo.prePage}" aria-label="Previous">
-                            <span aria-hidden="true">上一页</span>
-                        </a>
-                    </li>
-                    <!--当前显示的页号-->
-                    <th:block th:each="nav : ${pageInfo.navigatepageNums}" >
-                    <li  th:class="${nav==pageInfo.pageNum}?'active':'' " th:if="${(nav < (pageInfo.pageNum-2))||(nav > (pageInfo.pageNum+2)) ?'false':'true'}" >
-                        <a th:href="'/?pageNum=' + ${nav}"
-                           th:text="${nav}"></a></li>
-                    </th:block>
-                    <!--下一页-->
-                    <li th:if="${pageInfo.hasNextPage}">
-                        <a th:href="'/?pageNum=' + ${pageInfo.nextPage}" aria-label="Next">
-                            <span aria-hidden="true">下一页</span>
-                        </a>
-                    </li>
-                    <!--尾页-->
-                    <li>
-                        <a th:href="'/?pageNum='+${pageInfo.navigateLastPage}">尾页</a>
-                    </li>
-                </ul>
-            </nav>
-        </div>
-        <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
-            <h3>专业分类</h3>
-            <div class="major">
-                <a herf="#">软件工程</a>
-                <a herf="#">计算机科学</a>
-                <a herf="#">物理</a>
+                <div class="major">
+                    <a herf="#">软件工程</a>
+                    <a herf="#">计算机科学</a>
+                    <a herf="#">物理</a>
+                </div>
             </div>
         </div>
+
     </div>
-
 </div>
-
 </body>
 </html>

@@ -4,6 +4,11 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
     password: "00000000"  #密码加双引号
+  devtools:        #自动部署
+    restart:
+      enabled: false
+  thymeleaf:
+    cache: false
 mybatis:
   configuration:
     map-underscore-to-camel-case: true  #开启驼峰命名映射
