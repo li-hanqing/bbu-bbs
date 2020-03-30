@@ -1,68 +1,43 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="zh-CN" >
+<html xmlns:th="http://www.thymeleaf.org" lang="zh-CN">
 
 <head>
-<meta charset="utf-8">
-<title>HTML注册登录页面模板</title>
-<link rel="stylesheet" href="/css/loginstyle.css">
+    <meta charset="utf-8">
+    <title>HTML注册登录页面模板</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/self.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+    <script src="/js/bootstrap.min.js" type="application/javascript"></script>
+    <link rel="stylesheet" href="/css/loginstyle.css">
 </head>
 <body>
+<div th:replace="navigation::navcopy"></div> <!--导航栏-->
+<div class="content">
+    <form action="/login" method="post">
+        <div class="form sign-in">
+            <h2 th:text="${logMsg==null?'欢迎登录':logMsg}"></h2>
+            <label>
+                <span>邮箱</span>
+                <input type="email" name="mail"/>
+            </label>
+            <label>
+                <span>密码</span>
+                <input type="password" name="pwd"/>
+            </label>
+            <p class="forgot-pass">
+                <a href="javascript:">忘记密码?</a>
+            </p>
+            <p class="forgot-pass">
+                <a href="/registPage">注册</a>
+            </p>
 
-    <div class="content">
-        <form action="/login" method="post">
-            <div class="form sign-in">
-                <h2 th:text="${logMsg==null?'欢迎登录':logMsg}"></h2>
-                <label>
-                    <span>邮箱</span>
-                    <input type="email" name="mail"/>
-                </label>
-                <label>
-                    <span>密码</span>
-                    <input type="password" name="pwd"/>
-                </label>
-                <p class="forgot-pass"><a href="javascript:">忘记密码？</a></p>
-                <button type="submit" class="submit" formaction="/login">登 录</button>
-            </div>
-        </form>
-
-        <div class="sub-cont">
-            <div class="img">
-                <div class="img__text m--up">
-                    <h2>还未注册？</h2>
-                    <p>立即注册，发现大量机会！</p>
-                </div>
-                <div class="img__text m--in">
-                    <h2>已有帐号？</h2>
-                    <p>有帐号就登录吧，好久不见了！</p>
-                </div>
-                <div class="img__btn">
-                    <span class="m--up">注 册</span>
-                    <span class="m--in">登 录</span>
-                </div>
-            </div>
-            <form action="/register" method="post">
-                <div class="form sign-up">
-                    <h2 th:text="${regMsg==null?'立即注册':regMsg}"></h2>
-                    <label>
-                        <span>邮箱</span>
-                        <input type="email" name="mail"/>
-                    </label>
-                    <label>
-                        <span>密码</span>
-                        <input type="password" name="pwd"/>
-                    </label>
-                    <label>
-                        <span></span>
-                    </label>
-                    <button type="submit" class="submit" formaction="/register">注 册</button>
-                </div>
-            </form>
+            <button type="submit" class="submit" formaction="/login">登 录</button>
         </div>
-    </div>
+    </form>
+</div>
 
-    <script src="js/loginscript.js"></script>
-	
-	<div style="text-align:center;">
+<div style="text-align:center;">
 </div>
 </body>
 </html>

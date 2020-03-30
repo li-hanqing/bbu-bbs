@@ -29,6 +29,7 @@ public class ArticleService {
         }
         if (article.getId()  == null){
             article.setGmtCreate(System.currentTimeMillis());
+            article.setGmtModified(article.getGmtCreate());
             articleMapper.create(article);
         }else {
             article.setGmtModified(System.currentTimeMillis());
@@ -62,5 +63,8 @@ public class ArticleService {
         return articleDTO;
     }
 
-
+    //增加文章阅读数
+    public void addViewCount(Integer id) {
+        articleMapper.addViewCount(id);
+    }
 }

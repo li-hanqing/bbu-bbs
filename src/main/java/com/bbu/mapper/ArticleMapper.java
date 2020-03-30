@@ -25,4 +25,7 @@ public interface ArticleMapper {
 
     @Update("update article set title = #{title}, content = #{content}, tag = #{tag}, gmt_modified = #{gmtModified} where id = #{id}")
     public void updateArticleById(Article article);
+
+    @Update("update article set view_count = view_count+1 where id = #{id}")
+    void addViewCount(Integer id);
 }

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="zh-CN" >
+
+<head>
+    <meta charset="utf-8">
+    <title>HTML注册登录页面模板</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/self.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+    <script src="/js/bootstrap.min.js" type="application/javascript"></script>
+    <link rel="stylesheet" href="/css/loginstyle.css">
+</head>
+<body>
+<div th:replace="navigation::navcopy"></div> <!--导航栏-->
+<div class="content">
+    <form action="/register" method="post">
+        <div class="form sign-in">
+            <h2 th:text="${regMsg==null?'欢迎注册':regMsg}"></h2>
+            <label>
+                <span>用户名(唯一标识)</span>
+                <input type="text" name="userName"/>
+            </label>
+            <label>
+                <span>邮箱</span>
+                <input type="email" name="mail"/>
+            </label>
+            <label>
+                <span>密码</span>
+                <input type="password" name="pwd"/>
+            </label>
+            <label>
+                <span>确认密码</span>
+                <input type="password" name="affirmPwd"/>
+            </label>
+
+            <button type="submit" class="submit" formaction="/register">注册</button>
+        </div>
+    </form>
+
+</div>
+
+<div style="text-align:center;">
+</div>
+</body>
+</html>

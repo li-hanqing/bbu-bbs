@@ -22,6 +22,10 @@ public class UserController {
     public String toLoginPage(){
         return "login";
     }
+    @RequestMapping("/registPage")
+    public String toRegistPage(){
+        return "regist";
+    }
     @RequestMapping("/exit")      //退出按钮
     public String exit(HttpServletRequest request){
         request.getSession().removeAttribute("user");
@@ -45,16 +49,17 @@ public class UserController {
 
 
     @PostMapping("/register")     //注册
-    public ModelAndView register(@ModelAttribute User user, Model model){
+    public String register(@ModelAttribute User user, Model model){
         ModelAndView mv = new ModelAndView("/login");
-        if (userService.regist(user))
-            mv.addObject("logMsg","注册成功 ");
-        else{
-            mv.addObject("logMsg","注册失败请重新注册");
-            mv.addObject("regMsg","邮箱格式错误或已存在");
+        if (userService.regist(user)) {
+            model.addAttribute("logMsg", "注册成功 ");
+            return "login";
         }
-        return mv;
-
+        else{
+            model.addAttribute("regMsg","用户名或邮箱已存在");
+            return "regist";
+        }
     }
+
 
 }

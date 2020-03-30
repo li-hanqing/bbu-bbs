@@ -17,7 +17,7 @@ public interface UserMapper {
     public User getUserByUserName(String userName);
 
     //插入一条用户记录
-    @Insert("insert into user(user_name,mail,pwd) values(#{userName}#{mail},#{pwd})")
+    @Insert("insert into user(user_name,mail,pwd) values(#{userName},#{mail},#{pwd})")
     public int insert(User user);
 
 //    @Update("update user set pwd = #{pwd} where mail = #{mail}")

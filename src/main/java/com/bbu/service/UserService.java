@@ -7,12 +7,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserService {
 
-    final
-    UserMapper userMapper;
     @Autowired
-    public UserService(UserMapper userMapper) {
-        this.userMapper = userMapper;
-    }
+    UserMapper userMapper;
 
     public Boolean login(String mail,String pwd){
        User user = userMapper.getUserByUserMail(mail);
@@ -26,7 +22,7 @@ public class UserService {
        return userMapper.getUserByUserMail(mail);
     }
     public boolean regist(User user){
-        if (userMapper.getUserByUserMail(user.getMail())!=null) {  //如果账号存在注册失败
+        if (userMapper.getUserByUserMail(user.getMail())!=null&&userMapper.getUserByUserName(user.getUserName())!=null) {  //如果账号存在注册失败
             return false;
         }
         else {
